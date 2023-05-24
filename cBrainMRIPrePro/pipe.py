@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 class DataPreprocessing(ABC):
     """
     The provided pipeline offer the possibility to resample image spacing, bias field correct, co-register
-    (in SRI24 template or in a reference modality), skull-stripped, and z-score normalize.
+    (in MNI152 template or in a reference modality), skull-stripped, and z-score normalize.
 
     Class for data cBrainMRIPrePro input modalities as a dict:
 
@@ -39,7 +39,7 @@ class DataPreprocessing(ABC):
         - Skull-stripped the reference modalities and apply the mask on others modalities.
         - Normalization Z-Score (optional).
 
-    .. note:: Template is the SRI24 LPS atlas (as used in BraTS challenge).
+    .. note:: Template is the MNI ICBM 2009a Nonlinear Symmetric(referred to as ICBM152) stereotaxic template (as used in Yeh. et al. Nature, 2022, paper)
         It will add the suffix of the keys to data of each step. so if your keys is "T2" and values "/path/data_t1.nii.gz"
         it will split the values and look at the last suffix "t1", so will be data_step_t1_T2.nii.gz
         it will ignore case sensitivity, so if keys is "T1" and values "/path/data_t1.nii.gz", the step will be
@@ -216,8 +216,8 @@ class DataPreprocessing(ABC):
             f"{list(self.reference.values())[0]} path not exist"
 
         if self.template:
-            self.template = os.path.join(os.path.dirname(os.path.abspath(utils.__file__)), "Atlas_SRI",
-                                         "spgr_unstrip_lps.nii.gz")
+            self.template = os.path.join(os.path.dirname(os.path.abspath(utils.__file__)), "MNI152_space",
+                                         "icbm152.nii.gz")
 
         self.device = int(device) if torch.cuda.is_available() else "cpu"
         self.brain_mask = None
