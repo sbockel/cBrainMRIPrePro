@@ -39,7 +39,7 @@ class DataPreprocessing(ABC):
         - Skull-stripped the reference modalities and apply the mask on others modalities.
         - Normalization Z-Score (optional).
 
-    .. note:: Template is the MNI ICBM 2009a Nonlinear Symmetric(referred to as ICBM152) stereotaxic template (as used in Yeh. et al. Nature, 2022, paper)
+    .. note:: Template is the MNI ICBM 2009a Nonlinear aSymmetric(referred to as ICBM152) stereotaxic template (as used in Yeh. et al. Nature, 2022, paper)
         It will add the suffix of the keys to data of each step. so if your keys is "T2" and values "/path/data_t1.nii.gz"
         it will split the values and look at the last suffix "t1", so will be data_step_t1_T2.nii.gz
         it will ignore case sensitivity, so if keys is "T1" and values "/path/data_t1.nii.gz", the step will be
@@ -217,7 +217,7 @@ class DataPreprocessing(ABC):
 
         if self.template:
             self.template = os.path.join(os.path.dirname(os.path.abspath(utils.__file__)), "Atlas_SRI",
-                                         "icbm152.nii.gz")
+                                         "mni_icbm152_t1_tal_nlin_asym_09a.nii.gz")
 
         self.device = int(device) if torch.cuda.is_available() else "cpu"
         self.brain_mask = None
