@@ -216,7 +216,7 @@ class DataPreprocessing(ABC):
             f"{list(self.reference.values())[0]} path not exist"
 
         if self.template:
-            self.template = os.path.join(os.path.dirname(os.path.abspath(utils.__file__)), "MNI152_space",
+            self.template = os.path.join(os.path.dirname(os.path.abspath(utils.__file__)), "Atlas_SRI",
                                          "icbm152.nii.gz")
 
         self.device = int(device) if torch.cuda.is_available() else "cpu"
